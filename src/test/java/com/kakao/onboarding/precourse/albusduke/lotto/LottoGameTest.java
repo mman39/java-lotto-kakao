@@ -34,4 +34,11 @@ public class LottoGameTest {
                 new LottoGame(List.of(1, 2, 3, 4, 5, 6))
         ).doesNotThrowAnyException();
     }
+
+    @Test
+    void 중복된_숫자로_생성할_수_없다() {
+        assertThatThrownBy(() ->
+                new LottoGame(List.of(1, 1, 3, 4, 5, 6))
+        ).isInstanceOf(IllegalArgumentException.class);
+    }
 }
