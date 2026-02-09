@@ -1,21 +1,16 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
 public class LottoNumber {
+    private final static int MIN_NUMBER = 1;
+    private final static int MAX_NUMBER = 45;
 
-    public LottoNumber(String string) {
-        try {
-            int number = Integer.parseInt(string);
+    public LottoNumber(int number) {
+        validateRange(number);
+    }
 
-            if (number > 45) {
-                throw new IllegalArgumentException("45 초과 숫자는 입력할 수 없습니다.");
-            }
-
-            if (number < 1) {
-                throw new IllegalArgumentException("1 미만 숫자는 입력할 수 없습니다.");
-            }
-
-        } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException("빈 문자열은 입력할 수 없습니다.");
+    private void validateRange(int number) {
+        if (number > MAX_NUMBER || number < MIN_NUMBER) {
+            throw new IllegalArgumentException("1 미만 또는 45 초과 숫자는 입력할 수 없습니다.");
         }
     }
 }
