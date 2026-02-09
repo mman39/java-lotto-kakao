@@ -1,5 +1,6 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
@@ -41,4 +42,14 @@ public class LottoNumbersTest {
                 new LottoNumbers(List.of(1, 1, 3, 4, 5, 6))
         ).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void 겹치는_숫자_갯수를_계산할_수_있다() {
+        LottoNumbers a =  new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumbers b =  new LottoNumbers(List.of(1, 2, 3, 40, 41, 42));
+
+        Assertions.assertThat(a.countMatchingNumbers(a)).isEqualTo(6);
+        Assertions.assertThat(a.countMatchingNumbers(b)).isEqualTo(3);
+    }
+
 }

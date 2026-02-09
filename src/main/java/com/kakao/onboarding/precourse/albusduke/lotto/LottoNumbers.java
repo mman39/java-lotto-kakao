@@ -36,4 +36,18 @@ public class LottoNumbers {
 
         return false;
     }
+
+    public int countMatchingNumbers(LottoNumbers otherNumbers) {
+        int count = 0;
+
+        for (LottoNumber number : otherNumbers.lottoNumbers) {
+            if (hasNumber(number)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
 }
