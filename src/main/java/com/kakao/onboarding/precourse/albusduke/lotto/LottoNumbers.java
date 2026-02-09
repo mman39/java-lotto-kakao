@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LottoGame {
+public class LottoNumbers {
     private static final int NUMBER_SIZE = 6;
     private final List<LottoNumber> lottoNumbers;
 
-    public LottoGame(List<Integer> numbers) {
+    public LottoNumbers(List<Integer> numbers) {
         if (numbers.size() != NUMBER_SIZE) {
             throw new IllegalArgumentException("숫자 6개로 생성할 수 있습니다.");
         }
@@ -25,5 +25,15 @@ public class LottoGame {
             lottoNumbers.add(new LottoNumber(number));
         }
 
+    }
+
+    public boolean hasNumber(LottoNumber number) {
+        for (LottoNumber lottoNumber : lottoNumbers) {
+            if (lottoNumber.equals(number)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

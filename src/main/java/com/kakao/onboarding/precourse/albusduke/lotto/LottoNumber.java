@@ -1,16 +1,33 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import java.util.Objects;
+
 public class LottoNumber {
     private final static int MIN_NUMBER = 1;
     private final static int MAX_NUMBER = 45;
 
+    private final int number;
+
     public LottoNumber(int number) {
         validateRange(number);
+        this.number = number;
     }
 
     private void validateRange(int number) {
         if (number > MAX_NUMBER || number < MIN_NUMBER) {
             throw new IllegalArgumentException("1 미만 또는 45 초과 숫자는 입력할 수 없습니다.");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumber that = (LottoNumber) o;
+        return number == that.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(number);
     }
 }
