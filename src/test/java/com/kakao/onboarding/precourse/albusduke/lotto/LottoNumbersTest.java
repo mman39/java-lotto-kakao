@@ -1,5 +1,6 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;

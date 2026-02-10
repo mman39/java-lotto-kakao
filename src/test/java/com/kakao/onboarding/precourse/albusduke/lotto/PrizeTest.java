@@ -1,6 +1,7 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
-import org.assertj.core.api.Assertions;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.GameResult;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.Prize;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
