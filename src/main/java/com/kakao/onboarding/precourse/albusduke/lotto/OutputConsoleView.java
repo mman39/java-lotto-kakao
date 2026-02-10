@@ -1,5 +1,7 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -7,7 +9,7 @@ public class OutputConsoleView {
 
     private static final String MATCHING_FORMAT = "%d개 일치";
     private static final String REWARD_FORMAT = "(%d원)";
-    private static final String BONUS_MATCHING_FORMAT = ", 보너스 볼 일치";
+    private static final String BONUS_MATCHING_FORMAT = "보너스 볼 일치";
     private static final String COUNT_FORMAT = "%d개";
 
     public void outputStatistics(Statistics statistics) {
@@ -23,7 +25,7 @@ public class OutputConsoleView {
 
     private String createOutput(Prize prize, int count) {
         return String.format(MATCHING_FORMAT, prize.getMatchingCount()) +
-                (prize.getBonusMatchingCount() != 0 ? (" " + BONUS_MATCHING_FORMAT) : "") +
+                (prize.getBonusMatchingCount() != 0 ? (", " + BONUS_MATCHING_FORMAT) : "") +
                 String.format(REWARD_FORMAT, prize.getReward()) +
                 " - " +
                 String.format(COUNT_FORMAT, count);
@@ -36,7 +38,9 @@ public class OutputConsoleView {
     public void outputLottoNumbers(List<LottoNumbers> lottoNumbersList) {
         for (LottoNumbers lottoNumbers : lottoNumbersList) {
             StringJoiner sj =  new StringJoiner(", ", "[", "]");
-            for (LottoNumber number : lottoNumbers.getLottoNumbers()) {
+            List<LottoNumber> sortedLottoNumbers = new ArrayList<>(lottoNumbers.getLottoNumbers());
+            Collections.sort(sortedLottoNumbers);
+            for (LottoNumber number : sortedLottoNumbers) {
                 sj.add(String.valueOf(number.getNumber()));
             }
             System.out.println(sj);

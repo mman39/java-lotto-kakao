@@ -2,7 +2,7 @@ package com.kakao.onboarding.precourse.albusduke.lotto;
 
 import java.util.Objects;
 
-public class LottoNumber {
+public class LottoNumber implements Comparable<LottoNumber> {
     private final static int MIN_NUMBER = 1;
     private final static int MAX_NUMBER = 45;
 
@@ -33,5 +33,10 @@ public class LottoNumber {
 
     public int getNumber() {
         return number;
+    }
+
+    @Override
+    public int compareTo(LottoNumber o) {
+        return Integer.compare(this.number, o.number);
     }
 }
