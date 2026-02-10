@@ -1,4 +1,4 @@
-package com.kakao.onboarding.precourse.albusduke.lotto;
+package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbersGenerator;
