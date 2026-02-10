@@ -1,6 +1,15 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
-import java.util.List;
+import com.kakao.onboarding.precourse.albusduke.lotto.controller.LottoController;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.PurchaseGameAmount;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.RandomLottoNumbersGenerator;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.WinningNumbers;
+import com.kakao.onboarding.precourse.albusduke.lotto.service.LottoService;
+import com.kakao.onboarding.precourse.albusduke.lotto.service.StatisticsService;
+import com.kakao.onboarding.precourse.albusduke.lotto.util.Console;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.InputConsoleView;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.OutputConsoleView;
 
 public class App {
     public static void main(String[] args) {
@@ -10,14 +19,18 @@ public class App {
 
     private static LottoController createLottoController() {
         OutputConsoleView outputConsoleView = new OutputConsoleView();
-        InputConsoleView inputConsoleView = new InputConsoleView();
-        LottoService lottoService  = new LottoService();
-        return new LottoController(inputConsoleView, outputConsoleView, lottoService);
+        InputConsoleView inputConsoleView = new InputConsoleView(new Console());
+
+        LottoService lottoService  = new LottoService(new RandomLottoNumbersGenerator());
+        StatisticsService statisticsService = new StatisticsService();
+
+        return new LottoController(inputConsoleView, outputConsoleView, lottoService, statisticsService);
     }
 
     private static void runLottoGame(LottoController lottoController) {
-        int purchaseAmount = lottoController.savePurchaseAmount();
-        List<LottoNumbers> lottoGames = lottoController.purchaseLotto(purchaseAmount);
-        lottoController.statistics(lottoGames);
+        PurchaseGameAmount purchaseGameAmount = lottoController.calculatePurchaseGameAmount();
+        LottoGames lottoGames = lottoController.purchaseLottoGame(purchaseGameAmount);
+        WinningNumbers winningNumbers = lottoController.createWinningNumbers();
+        lottoController.calculateStatistics(winningNumbers, lottoGames);
     }
 }
