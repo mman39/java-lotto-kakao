@@ -53,4 +53,16 @@ public class LottoNumbers {
     public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumbers that = (LottoNumbers) o;
+        return Objects.equals(lottoNumbers, that.lottoNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(lottoNumbers);
+    }
 }
