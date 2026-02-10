@@ -1,20 +1,23 @@
-package com.kakao.onboarding.precourse.albusduke.lotto;
+package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class LottoNumbers {
+
     private static final int NUMBER_SIZE = 6;
+    private static final String NUMBER_SIZE_ERR_MSG = "숫자 6개로 생성할 수 있습니다.";
+    private static final String DUPLICATED_NUMBER_ERR_MSG = "중복된 숫자로 생성할 수 없습니다.";
+
     private final List<LottoNumber> lottoNumbers;
 
     public LottoNumbers(List<Integer> numbers) {
         if (numbers.size() != NUMBER_SIZE) {
-            throw new IllegalArgumentException("숫자 6개로 생성할 수 있습니다.");
+            throw new IllegalArgumentException(NUMBER_SIZE_ERR_MSG);
         }
 
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
         if (uniqueNumbers.size() != numbers.size()) {
-            throw new IllegalArgumentException("중복된 숫자로 생성할 수 없습니다.");
+            throw new IllegalArgumentException(DUPLICATED_NUMBER_ERR_MSG);
         }
 
         lottoNumbers = new ArrayList<>();
@@ -23,12 +26,6 @@ public class LottoNumbers {
             lottoNumbers.add(new LottoNumber(number));
         }
 
-    }
-
-    public static LottoNumbers generate() {
-        List<Integer> nums = new ArrayList<>(IntStream.rangeClosed(1, 45).boxed().toList());
-        Collections.shuffle(nums);
-        return new LottoNumbers(nums.subList(0, 6));
     }
 
     public boolean hasNumber(LottoNumber number) {

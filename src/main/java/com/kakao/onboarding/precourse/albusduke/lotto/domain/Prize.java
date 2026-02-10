@@ -1,4 +1,4 @@
-package com.kakao.onboarding.precourse.albusduke.lotto;
+package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
 /**
  * 로또 당첨 등급을 관리하는 Enum입니다.
@@ -48,7 +48,7 @@ public enum Prize {
     }
 
     public int getBonusMatchingCount() {
-        return  bonusMatchingCount;
+        return bonusMatchingCount;
     }
 
     public long getReward() {

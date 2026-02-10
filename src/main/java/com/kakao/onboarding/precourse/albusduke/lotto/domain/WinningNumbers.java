@@ -1,6 +1,8 @@
-package com.kakao.onboarding.precourse.albusduke.lotto;
+package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
 public class WinningNumbers {
+
+    private static final String BONUS_NUMBER_DUPLICATED_ERR_MSG = "보너스 번호는 당첨 번호에 포함될 수 없습니다.";
 
     private final LottoNumbers winningNumbers;
     private final LottoNumber bonusNumber;
@@ -13,7 +15,7 @@ public class WinningNumbers {
 
     private static void validateBonusInNumbers(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
         if(lottoNumbers.hasNumber(bonusNumber)) {
-            throw new IllegalArgumentException("보너스 번호는 당첨 번호에 포함될 수 없습니다.");
+            throw new IllegalArgumentException(BONUS_NUMBER_DUPLICATED_ERR_MSG);
         }
     }
 
