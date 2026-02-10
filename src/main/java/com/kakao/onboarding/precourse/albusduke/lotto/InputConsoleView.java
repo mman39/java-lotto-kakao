@@ -8,14 +8,14 @@ public class InputConsoleView {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public LottoPurchaseAmountDto inputPurchaseAmount() {
+    public PurchaseAmountDto inputPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
         int purchaseAmount = scanner.nextInt();
 
         if (purchaseAmount < 0 || 100_000_000 < purchaseAmount) {
             throw new IllegalArgumentException("구매금액은 0이상 100,000,000 이상이어야 합니다");
         }
-        return new LottoPurchaseAmountDto(purchaseAmount);
+        return new PurchaseAmountDto(purchaseAmount);
     }
 
     public PreviousWinningNumbersDto inputPreviousWinningNumbers() {

@@ -25,4 +25,8 @@ public class OutputConsoleView {
                 " - " +
                 String.format(COUNT_FORMAT, count);
     }
+
+    public void outputPurchaseAmount(int countLotto) {
+        System.out.println(countLotto + "개를 구매했습니다.");
+    }
 }
