@@ -20,7 +20,7 @@ public class PrizeStore {
             totalReward += counts.getOrDefault(prize, 0) * prize.getReward();
         }
 
-        double ratio = totalReward / ((double)gameCount * 1000);
+        double ratio = gameCount == 0 ? 0 : totalReward / ((double)gameCount * 1000);
 
         return new Statistics(counts, ratio);
     }

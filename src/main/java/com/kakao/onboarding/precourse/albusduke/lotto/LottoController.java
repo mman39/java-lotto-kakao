@@ -21,7 +21,7 @@ public class LottoController {
         try {
             purchaseAmountDto = inputConsoleView.inputPurchaseAmount();
             int countLotto = lottoService.savePurchaseAmount(purchaseAmountDto);
-            outputConsoleView.outputPurchaseAmount(countLotto);
+            outputConsoleView.outputPurchaseAmount(new PurchasedLottoCountDto(countLotto));
             return countLotto;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -30,9 +30,9 @@ public class LottoController {
     }
 
     public List<LottoNumbers> purchaseLotto(int purchaseAmount) {
-        List<LottoNumbers> lottoNumberList = lottoService.buyLottoGame(purchaseAmount);
-        outputConsoleView.outputLottoNumbers((lottoNumberList));
-        return lottoNumberList;
+        List<LottoNumbers> lottoGames = lottoService.buyLottoGame(purchaseAmount);
+        outputConsoleView.outputLottoNumbers(new LottoNumberListDto(lottoGames));
+        return lottoGames;
     }
 
     public void statistics(List<LottoNumbers> lottoNumbersList) {
