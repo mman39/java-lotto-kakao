@@ -43,6 +43,14 @@ public enum Prize {
         return Prize.NONE;
     }
 
+    public int getMatchingCount() {
+        return matchingCount;
+    }
+
+    public int getBonusMatchingCount() {
+        return  bonusMatchingCount;
+    }
+
     public long getReward() {
         return reward;
     }
