@@ -42,4 +42,8 @@ public enum Prize {
 
         return Prize.NONE;
     }
+
+    public long getReward() {
+        return reward;
+    }
 }
