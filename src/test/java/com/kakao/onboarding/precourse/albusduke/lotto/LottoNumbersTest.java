@@ -1,10 +1,12 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumber;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -53,4 +55,38 @@ public class LottoNumbersTest {
         Assertions.assertThat(a.countMatchingNumbers(b)).isEqualTo(3);
     }
 
+    @Test
+    void 특정_번호를_포함하는지_확인할_수_있다() {
+        LottoNumbers lottoNumbers = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(lottoNumbers.hasNumber(new LottoNumber(1))).isTrue();
+        assertThat(lottoNumbers.hasNumber(new LottoNumber(6))).isTrue();
+        assertThat(lottoNumbers.hasNumber(new LottoNumber(7))).isFalse();
+        assertThat(lottoNumbers.hasNumber(new LottoNumber(45))).isFalse();
+    }
+
+    @Test
+    void 로또_번호_리스트를_가져올_수_있다() {
+        LottoNumbers lottoNumbers = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(lottoNumbers.getLottoNumbers()).hasSize(6);
+        assertThat(lottoNumbers.getLottoNumbers().get(0).getNumber()).isEqualTo(1);
+        assertThat(lottoNumbers.getLottoNumbers().get(5).getNumber()).isEqualTo(6);
+    }
+
+    @Test
+    void 겹치는_숫자가_없을_때_0을_반환한다() {
+        LottoNumbers a = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumbers b = new LottoNumbers(List.of(40, 41, 42, 43, 44, 45));
+
+        assertThat(a.countMatchingNumbers(b)).isEqualTo(0);
+    }
+
+    @Test
+    void 모든_숫자가_겹칠_때_6을_반환한다() {
+        LottoNumbers a = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumbers b = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+
+        assertThat(a.countMatchingNumbers(b)).isEqualTo(6);
+    }
 }
