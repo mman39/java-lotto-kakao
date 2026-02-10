@@ -1,5 +1,7 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
 
@@ -9,9 +11,9 @@ public class App {
         LottoController lottoController = new LottoController(inputConsoleView, outputConsoleView, lottoService);
 
         while (true) {
-            int number = lottoController.savePurchaseAmount();
-            lottoController.purchaseLotto();
-            // lottoController.statistics();
+            int purchaseAmount = lottoController.savePurchaseAmount();
+            List<LottoNumbers> lottoNumbersList = lottoController.purchaseLotto(purchaseAmount);
+            lottoController.statistics(lottoNumbersList);
         }
     }
 }

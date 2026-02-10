@@ -1,9 +1,7 @@
 package com.kakao.onboarding.precourse.albusduke.lotto;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class LottoNumbers {
     private static final int NUMBER_SIZE = 6;
@@ -25,6 +23,12 @@ public class LottoNumbers {
             lottoNumbers.add(new LottoNumber(number));
         }
 
+    }
+
+    public static LottoNumbers generate() {
+        List<Integer> nums = new ArrayList<>(IntStream.rangeClosed(1, 45).boxed().toList());
+        Collections.shuffle(nums);
+        return new LottoNumbers(nums.subList(0, 6));
     }
 
     public boolean hasNumber(LottoNumber number) {
@@ -49,5 +53,7 @@ public class LottoNumbers {
         return count;
     }
 
-
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
+    }
 }
