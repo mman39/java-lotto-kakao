@@ -10,11 +10,11 @@ import java.util.Arrays;
  */
 public enum Prize {
 
-    FIRST(6, 0, 2000000000L),
-    SECOND(5, 1, 30000000L),
-    THIRD(5, 0, 1500000L),
-    FORTH(4, 0, 50000L),
-    FIFTH(3, 0, 5000L),
+    FIRST(6, 0, 2_000_000_000L),
+    SECOND(5, 1, 30_000_000L),
+    THIRD(5, 0, 1_500_000L),
+    FORTH(4, 0, 50_000L),
+    FIFTH(3, 0, 5_000L),
     NONE(0, 0, 0L);
 
     private final int matchingCount;
