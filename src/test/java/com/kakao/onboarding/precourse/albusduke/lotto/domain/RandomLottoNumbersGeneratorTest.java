@@ -1,8 +1,5 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbersGenerator;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.RandomLottoNumbersGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

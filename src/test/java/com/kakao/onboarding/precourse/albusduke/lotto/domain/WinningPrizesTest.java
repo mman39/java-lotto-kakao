@@ -1,6 +1,5 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

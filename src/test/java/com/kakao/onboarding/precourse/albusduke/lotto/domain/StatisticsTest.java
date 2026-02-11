@@ -1,11 +1,5 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.Statistics;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.WinningPrizes;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.WinningNumbers;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumber;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

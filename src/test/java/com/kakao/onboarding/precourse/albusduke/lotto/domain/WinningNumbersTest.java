@@ -1,9 +1,5 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.GameResult;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumber;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.WinningNumbers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
