@@ -43,15 +43,16 @@ public class Console implements Input, Output {
         }
     }
 
-    @Override
-    public void output(String message) {
+    private void output(String message) {
         System.out.println(message);
     }
 
+    @Override
     public void outputPurchaseGameAmount(PurchaseGameAmount purchasedGameAmount) {
         output(String.format(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count()));
     }
 
+    @Override
     public void outputLottoNumbers(LottoGames lottoGames) {
         for (LottoNumbers game : lottoGames.games()) {
             StringJoiner sj = new StringJoiner(", ", "[", "]");
@@ -64,6 +65,7 @@ public class Console implements Input, Output {
         }
     }
 
+    @Override
     public void outputStatistics(Statistics statistics) {
         WinningPrizes winningPrizes = statistics.winningPrizes();
         output(STATISTICS_PREFIX);
@@ -83,6 +85,7 @@ public class Console implements Input, Output {
                 String.format(COUNT_FORMAT, count);
     }
 
+    @Override
     public void outputError(IllegalArgumentException e) {
         output(ERROR_PREFIX + e.getMessage());
     }
