@@ -6,8 +6,8 @@ import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbersGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class LottoService {
 
@@ -37,10 +37,9 @@ public class LottoService {
     }
 
     public LottoGames purchaseLottoGame(PurchaseGameAmount purchaseGameAmount) {
-        List<LottoNumbers> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < purchaseGameAmount.count(); ++i) {
-            lottoNumbers.add(lottoNumbersGenerator.generate());
-        }
+        List<LottoNumbers> lottoNumbers = IntStream.range(0, purchaseGameAmount.count())
+                .mapToObj(i -> lottoNumbersGenerator.generate())
+                .toList();
         return new LottoGames(lottoNumbers);
     }
 }

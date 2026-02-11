@@ -1,5 +1,7 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.domain;
 
+import java.util.Arrays;
+
 /**
  * 로또 당첨 등급을 관리하는 Enum입니다.
  * <p>
@@ -33,14 +35,11 @@ public enum Prize {
      * 일반 일치 등급보다 우선순위가 높아야 합니다.
      */
     public static Prize of(GameResult gameResult) {
-
-        for (Prize prize : Prize.values()) {
-            if (prize.matchingCount == gameResult.matchingCount() && prize.bonusMatchingCount <= gameResult.bonusMatchingCount()) {
-                return prize;
-            }
-        }
-
-        return Prize.NONE;
+        return Arrays.stream(Prize.values())
+                .filter(prize -> prize.matchingCount == gameResult.matchingCount() 
+                        && prize.bonusMatchingCount <= gameResult.bonusMatchingCount())
+                .findFirst()
+                .orElse(Prize.NONE);
     }
 
     public int getMatchingCount() {
