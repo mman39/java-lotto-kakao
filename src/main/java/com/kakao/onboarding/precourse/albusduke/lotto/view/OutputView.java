@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class OutputConsoleView {
+public class OutputView {
 
     private static final String PURCHASE_COUNT_FORMAT = "%d개를 구매했습니다.\n";
     private static final String STATISTICS_PREFIX = "당첨 통계\n-------------";
@@ -27,12 +27,12 @@ public class OutputConsoleView {
 
     private final Output output;
 
-    public OutputConsoleView(Output output) {
+    public OutputView(Output output) {
         this.output = output;
     }
 
     public void outputPurchaseGameAmount(PurchaseGameAmount purchasedGameAmount) {
-        output.printf(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count());
+        output.output(String.format(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count()));
     }
 
     public void outputLottoNumbers(LottoGames lottoGames) {
@@ -43,19 +43,19 @@ public class OutputConsoleView {
             for (LottoNumber number : sortedLottoNumbers) {
                 sj.add(String.valueOf(number.getNumber()));
             }
-            output.println(sj.toString());
+            output.output(sj.toString());
         }
     }
 
     public void outputStatistics(Statistics statistics) {
         WinningPrizes winningPrizes = statistics.winningPrizes();
-        output.println(STATISTICS_PREFIX);
-        output.println(createOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
-        output.println(createOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
-        output.println(createOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
-        output.println(createOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
-        output.println(createOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
-        output.printf(RATIO_FORMAT, statistics.ratio());
+        output.output(STATISTICS_PREFIX);
+        output.output(createOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
+        output.output(createOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
+        output.output(createOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
+        output.output(createOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
+        output.output(createOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
+        output.output(String.format(RATIO_FORMAT, statistics.ratio()));
     }
 
     private String createOutput(Prize prize, int count) {
@@ -67,6 +67,6 @@ public class OutputConsoleView {
     }
 
     public void outputError(IllegalArgumentException e) {
-        output.println(ERROR_PREFIX + e.getMessage());
+        output.output(ERROR_PREFIX + e.getMessage());
     }
 }

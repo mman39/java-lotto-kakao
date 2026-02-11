@@ -3,18 +3,18 @@ package com.kakao.onboarding.precourse.albusduke.lotto.controller;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.*;
 import com.kakao.onboarding.precourse.albusduke.lotto.service.LottoService;
 import com.kakao.onboarding.precourse.albusduke.lotto.service.StatisticsService;
-import com.kakao.onboarding.precourse.albusduke.lotto.view.InputConsoleView;
-import com.kakao.onboarding.precourse.albusduke.lotto.view.OutputConsoleView;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.InputView;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.OutputView;
 
 public class LottoController {
 
-    private final InputConsoleView inputConsoleView;
-    private final OutputConsoleView outputConsoleView;
+    private final InputView inputConsoleView;
+    private final OutputView outputConsoleView;
 
     private final LottoService lottoService;
     private final StatisticsService statisticsService;
 
-    public LottoController(InputConsoleView inputConsoleView, OutputConsoleView outputConsoleView, LottoService lottoService, StatisticsService statisticsService) {
+    public LottoController(InputView inputConsoleView, OutputView outputConsoleView, LottoService lottoService, StatisticsService statisticsService) {
         this.inputConsoleView = inputConsoleView;
         this.outputConsoleView = outputConsoleView;
         this.lottoService = lottoService;
