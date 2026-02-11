@@ -7,6 +7,7 @@ import com.kakao.onboarding.precourse.albusduke.lotto.domain.WinningPrizes;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumber;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
+import com.kakao.onboarding.precourse.albusduke.lotto.util.Output;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,9 +23,16 @@ public class OutputConsoleView {
     private static final String BONUS_MATCHING_FORMAT = "보너스 볼 일치";
     private static final String COUNT_FORMAT = "%d개";
     private static final String RATIO_FORMAT = "총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n";
+    private static final String ERROR_PREFIX = "[ERROR] ";
+
+    private final Output output;
+
+    public OutputConsoleView(Output output) {
+        this.output = output;
+    }
 
     public void outputPurchaseGameAmount(PurchaseGameAmount purchasedGameAmount) {
-        System.out.printf(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count());
+        output.printf(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count());
     }
 
     public void outputLottoNumbers(LottoGames lottoGames) {
@@ -35,19 +43,19 @@ public class OutputConsoleView {
             for (LottoNumber number : sortedLottoNumbers) {
                 sj.add(String.valueOf(number.getNumber()));
             }
-            System.out.println(sj);
+            output.println(sj.toString());
         }
     }
 
     public void outputStatistics(Statistics statistics) {
         WinningPrizes winningPrizes = statistics.winningPrizes();
-        System.out.println(STATISTICS_PREFIX);
-        System.out.println(createOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
-        System.out.println(createOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
-        System.out.println(createOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
-        System.out.println(createOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
-        System.out.println(createOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
-        System.out.printf(RATIO_FORMAT, statistics.ratio());
+        output.println(STATISTICS_PREFIX);
+        output.println(createOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
+        output.println(createOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
+        output.println(createOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
+        output.println(createOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
+        output.println(createOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
+        output.printf(RATIO_FORMAT, statistics.ratio());
     }
 
     private String createOutput(Prize prize, int count) {
@@ -59,6 +67,6 @@ public class OutputConsoleView {
     }
 
     public void outputError(IllegalArgumentException e) {
-        System.out.println("[ERROR] " + e.getMessage());
+        output.println(ERROR_PREFIX + e.getMessage());
     }
 }

@@ -15,8 +15,9 @@ public class App {
     }
 
     private static LottoController createLottoController() {
-        OutputConsoleView outputConsoleView = new OutputConsoleView();
-        InputConsoleView inputConsoleView = new InputConsoleView(new Console());
+        Console console = new Console();
+        OutputConsoleView outputConsoleView = new OutputConsoleView(console);
+        InputConsoleView inputConsoleView = new InputConsoleView(console);
 
         LottoService lottoService  = new LottoService(new RandomLottoNumbersGenerator());
         StatisticsService statisticsService = new StatisticsService();
