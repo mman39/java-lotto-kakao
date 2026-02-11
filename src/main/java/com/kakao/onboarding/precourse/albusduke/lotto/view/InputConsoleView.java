@@ -26,16 +26,11 @@ public class InputConsoleView {
 
     public PurchaseAmount inputPurchaseAmount() {
         System.out.println(PURCHASE_AMOUNT_REQUEST);
-        try {
-            int purchaseAmount = Integer.parseInt(input.readNext());
-
-            if (purchaseAmount <= MIN_PURCHASE_AMOUNT || MAX_PURCHASE_AMOUNT < purchaseAmount) {
-                throw new IllegalArgumentException(ILLEGAL_PURCHASE_AMOUNT_ERR_MSG);
-            }
-            return new PurchaseAmount(purchaseAmount);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자 형식이어야 합니다.");
+        int purchaseAmount = input.readInt();
+        if (purchaseAmount <= MIN_PURCHASE_AMOUNT || MAX_PURCHASE_AMOUNT < purchaseAmount) {
+            throw new IllegalArgumentException(ILLEGAL_PURCHASE_AMOUNT_ERR_MSG);
         }
+        return new PurchaseAmount(purchaseAmount);
     }
 
     public WinningNumbers inputWinningNumbers() {

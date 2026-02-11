@@ -4,4 +4,5 @@ public interface Input {
 
     String readNext();
 
+    int readInt();
 }
