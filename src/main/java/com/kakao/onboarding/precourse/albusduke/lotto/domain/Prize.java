@@ -10,20 +10,20 @@ import java.util.Arrays;
  */
 public enum Prize {
 
-    FIRST(6, 0, 2_000_000_000L),
-    SECOND(5, 1, 30_000_000L),
-    THIRD(5, 0, 1_500_000L),
-    FORTH(4, 0, 50_000L),
-    FIFTH(3, 0, 5_000L),
-    NONE(0, 0, 0L);
+    FIRST(6, false, 2_000_000_000L),
+    SECOND(5, true, 30_000_000L),
+    THIRD(5, false, 1_500_000L),
+    FORTH(4, false, 50_000L),
+    FIFTH(3, false, 5_000L),
+    NONE(0, false, 0L);
 
     private final int matchingCount;
-    private final int bonusMatchingCount;
+    private final boolean hasBonusMatch;
     private final long reward;
 
-    Prize(int matchingCount, int bonusMatchingCount, long reward) {
+    Prize(int matchingCount, boolean hasBonusMatch, long reward) {
         this.matchingCount = matchingCount;
-        this.bonusMatchingCount = bonusMatchingCount;
+        this.hasBonusMatch = hasBonusMatch;
         this.reward = reward;
     }
 
@@ -37,7 +37,7 @@ public enum Prize {
     public static Prize of(GameResult gameResult) {
         return Arrays.stream(Prize.values())
                 .filter(prize -> prize.matchingCount == gameResult.matchingCount() 
-                        && prize.bonusMatchingCount <= gameResult.bonusMatchingCount())
+                        && (!prize.hasBonusMatch || gameResult.hasBonusMatch()))
                 .findFirst()
                 .orElse(Prize.NONE);
     }
@@ -46,8 +46,8 @@ public enum Prize {
         return matchingCount;
     }
 
-    public int getBonusMatchingCount() {
-        return bonusMatchingCount;
+    public boolean hasBonusMatch() {
+        return hasBonusMatch;
     }
 
     public long getReward() {

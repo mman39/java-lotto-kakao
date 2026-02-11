@@ -52,7 +52,7 @@ public class OutputConsoleView {
 
     private String createOutput(Prize prize, int count) {
         return String.format(MATCHING_FORMAT, prize.getMatchingCount()) +
-                (prize.getBonusMatchingCount() != 0 ? (", " + BONUS_MATCHING_FORMAT) : "") +
+                (prize.hasBonusMatch() ? (", " + BONUS_MATCHING_FORMAT) : "") +
                 String.format(REWARD_FORMAT, prize.getReward()) +
                 " - " +
                 String.format(COUNT_FORMAT, count);

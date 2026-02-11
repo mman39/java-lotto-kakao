@@ -21,8 +21,8 @@ public class WinningNumbers {
 
     public GameResult calculateResult(LottoNumbers game) {
         int matchingCount = game.countMatchingNumbers(winningNumbers);
-        int bonusMatchingCount = game.hasNumber(bonusNumber) ? 1 : 0;
+        boolean hasBonusMatch = game.hasNumber(bonusNumber);
 
-        return new GameResult(matchingCount, bonusMatchingCount);
+        return new GameResult(matchingCount, hasBonusMatch);
     }
 }

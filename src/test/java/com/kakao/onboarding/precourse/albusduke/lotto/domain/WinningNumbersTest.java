@@ -37,19 +37,19 @@ public class WinningNumbersTest {
     @Test
     void GameResult_를_계산할_수_있다() {
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 4, 5, 6))))
-                .isEqualTo(new GameResult(6, 0));
+                .isEqualTo(new GameResult(6, false));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 4, 5, 7))))
-                .isEqualTo(new GameResult(5, 1));
+                .isEqualTo(new GameResult(5, true));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 4, 5, 10))))
-                .isEqualTo(new GameResult(5, 0));
+                .isEqualTo(new GameResult(5, false));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 4, 10, 11))))
-                .isEqualTo(new GameResult(4, 0));
+                .isEqualTo(new GameResult(4, false));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 4, 7, 10))))
-                .isEqualTo(new GameResult(4, 1));
+                .isEqualTo(new GameResult(4, true));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 7, 10, 11))))
-                .isEqualTo(new GameResult(3, 1));
+                .isEqualTo(new GameResult(3, true));
         assertThat(winningNumbers.calculateResult(new LottoNumbers(List.of(1, 2, 3, 10, 11, 12))))
-                .isEqualTo(new GameResult(3, 0));
+                .isEqualTo(new GameResult(3, false));
     }
 
 }
