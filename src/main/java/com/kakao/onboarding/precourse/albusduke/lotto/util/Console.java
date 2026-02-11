@@ -43,13 +43,9 @@ public class Console implements Input, Output {
         }
     }
 
-    private void output(String message) {
-        System.out.println(message);
-    }
-
     @Override
     public void outputPurchaseGameAmount(PurchaseGameAmount purchasedGameAmount) {
-        output(String.format(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count()));
+        System.out.printf(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count());
     }
 
     @Override
@@ -61,20 +57,20 @@ public class Console implements Input, Output {
             for (LottoNumber number : sortedLottoNumbers) {
                 sj.add(String.valueOf(number.getNumber()));
             }
-            output(sj.toString());
+            System.out.println(sj.toString());
         }
     }
 
     @Override
     public void outputStatistics(Statistics statistics) {
         WinningPrizes winningPrizes = statistics.winningPrizes();
-        output(STATISTICS_PREFIX);
-        output(formatPrizeOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
-        output(formatPrizeOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
-        output(formatPrizeOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
-        output(formatPrizeOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
-        output(formatPrizeOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
-        output(String.format(RATIO_FORMAT, statistics.ratio()));
+        System.out.println(STATISTICS_PREFIX);
+        System.out.println(formatPrizeOutput(Prize.FIFTH, winningPrizes.getCounts().getOrDefault(Prize.FIFTH, 0)));
+        System.out.println(formatPrizeOutput(Prize.FORTH, winningPrizes.getCounts().getOrDefault(Prize.FORTH, 0)));
+        System.out.println(formatPrizeOutput(Prize.THIRD, winningPrizes.getCounts().getOrDefault(Prize.THIRD, 0)));
+        System.out.println(formatPrizeOutput(Prize.SECOND, winningPrizes.getCounts().getOrDefault(Prize.SECOND, 0)));
+        System.out.println(formatPrizeOutput(Prize.FIRST, winningPrizes.getCounts().getOrDefault(Prize.FIRST, 0)));
+        System.out.printf(RATIO_FORMAT, statistics.ratio());
     }
 
     private String formatPrizeOutput(Prize prize, int count) {
@@ -87,6 +83,6 @@ public class Console implements Input, Output {
 
     @Override
     public void outputError(IllegalArgumentException e) {
-        output(ERROR_PREFIX + e.getMessage());
+        System.out.println(ERROR_PREFIX + e.getMessage());
     }
 }
