@@ -21,6 +21,13 @@ public class LottoController {
         this.statisticsService = statisticsService;
     }
 
+    public void runLottoGame() {
+        PurchaseGameAmount purchaseGameAmount = calculatePurchaseGameAmount();
+        LottoGames lottoGames = purchaseLottoGame(purchaseGameAmount);
+        WinningNumbers winningNumbers = createWinningNumbers();
+        calculateStatistics(winningNumbers, lottoGames);
+    }
+
     public PurchaseGameAmount calculatePurchaseGameAmount() {
         try {
             PurchaseAmount purchaseAmount = inputConsoleView.inputPurchaseAmount();
