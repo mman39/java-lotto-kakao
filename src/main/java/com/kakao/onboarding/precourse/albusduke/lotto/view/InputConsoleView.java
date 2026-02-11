@@ -16,6 +16,7 @@ public class InputConsoleView {
     private static final String WINNING_NUMBERS_REQUEST = "지난 주 당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_REQUEST = "보너스 볼을 입력해 주세요.";
     private static final String ILLEGAL_WINNING_NUMBERS_ERR_MSG = "입력 형식은 숫자여야 합니다. (ex: 1, 2, 3, 4, 5, 6)";
+    private static final String DELIMITER = ",";
 
     private final Input input;
 
@@ -42,12 +43,15 @@ public class InputConsoleView {
 
         List<Integer> winningNumbers;
         try {
-            winningNumbers = Arrays.stream(input.readNext().split(", ")).map(Integer::parseInt).toList();
+            winningNumbers = Arrays.stream(input.readNext().split(DELIMITER))
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .toList();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ILLEGAL_WINNING_NUMBERS_ERR_MSG);
         }
         System.out.println(BONUS_NUMBER_REQUEST);
-        int bonusNumber = Integer.parseInt(input.readNext());
+        int bonusNumber = Integer.parseInt(input.readNext().trim());
 
         return new WinningNumbers(new LottoNumbers(winningNumbers), new LottoNumber(bonusNumber));
     }
