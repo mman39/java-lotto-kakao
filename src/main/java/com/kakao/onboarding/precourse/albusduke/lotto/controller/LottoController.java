@@ -1,0 +1,67 @@
+package com.kakao.onboarding.precourse.albusduke.lotto.controller;
+
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.*;
+import com.kakao.onboarding.precourse.albusduke.lotto.service.LottoService;
+import com.kakao.onboarding.precourse.albusduke.lotto.service.StatisticsService;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.InputView;
+import com.kakao.onboarding.precourse.albusduke.lotto.view.OutputView;
+
+public class LottoController {
+
+    private final InputView inputConsoleView;
+    private final OutputView outputConsoleView;
+
+    private final LottoService lottoService;
+    private final StatisticsService statisticsService;
+
+    public LottoController(InputView inputConsoleView, OutputView outputConsoleView, LottoService lottoService, StatisticsService statisticsService) {
+        this.inputConsoleView = inputConsoleView;
+        this.outputConsoleView = outputConsoleView;
+        this.lottoService = lottoService;
+        this.statisticsService = statisticsService;
+    }
+
+    public void runLottoGame() {
+        PurchaseGameAmount purchaseGameAmount = calculatePurchaseGameAmount();
+        LottoGames lottoGames = purchaseLottoGame(purchaseGameAmount);
+        WinningNumbers winningNumbers = createWinningNumbers();
+        calculateStatistics(winningNumbers, lottoGames);
+    }
+
+    public PurchaseGameAmount calculatePurchaseGameAmount() {
+        try {
+            PurchaseAmount purchaseAmount = inputConsoleView.inputPurchaseAmount();
+            PurchaseGameAmount purchaseGameAmount = lottoService.purchaseLottoGames(purchaseAmount);
+            outputConsoleView.outputPurchaseGameAmount(purchaseGameAmount);
+            return purchaseGameAmount;
+        } catch (IllegalArgumentException e) {
+            outputConsoleView.outputError(e);
+            return calculatePurchaseGameAmount();
+        }
+    }
+
+    public LottoGames purchaseLottoGame(PurchaseGameAmount purchaseAmount) {
+        try {
+            LottoGames lottoGames = lottoService.purchaseLottoGame(purchaseAmount);
+            outputConsoleView.outputLottoNumbers(lottoGames);
+            return lottoGames;
+        } catch (IllegalArgumentException e) {
+            outputConsoleView.outputError(e);
+            return purchaseLottoGame(purchaseAmount);
+        }
+    }
+
+    public WinningNumbers createWinningNumbers() {
+        try {
+            return inputConsoleView.inputWinningNumbers();
+        } catch (IllegalArgumentException e) {
+            outputConsoleView.outputError(e);
+            return createWinningNumbers();
+        }
+    }
+
+    public void calculateStatistics(WinningNumbers winningNumbers, LottoGames lottoGames) {
+        Statistics statistics = statisticsService.calculateStatistics(winningNumbers, lottoGames);
+        outputConsoleView.outputStatistics(statistics);
+    }
+}
