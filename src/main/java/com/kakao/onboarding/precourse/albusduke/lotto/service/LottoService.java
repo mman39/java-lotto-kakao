@@ -1,7 +1,6 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.service;
 
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.PurchaseAmount;
-import com.kakao.onboarding.precourse.albusduke.lotto.domain.PurchaseGameAmount;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.TicketQuantity;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
@@ -15,6 +14,7 @@ import java.util.stream.IntStream;
 
 public class LottoService {
 
+    private static final String INVALID_RANDOM_QUANTITY_ERR_MSG = "자동 티켓 수는 0 이상이어야 합니다.";
     private static final int LOTTO_COST = 1_000;
 
     private final LottoNumbersGenerator lottoNumbersGenerator;
@@ -32,6 +32,9 @@ public class LottoService {
         int totalQuantity = money.divide(lottoCost);
         int manualQuantity = manualTicketQuantity.getQuantity();
         int randomQuantity = totalQuantity - manualQuantity;
+        if (randomQuantity < 0) {
+            throw new IllegalArgumentException("자동 티켓 수는 0 이상이어야 합니다.");
+        }
         return new TicketQuantity(randomQuantity, manualQuantity);
     }
 
