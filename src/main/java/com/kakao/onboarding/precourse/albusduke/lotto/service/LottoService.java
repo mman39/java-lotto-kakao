@@ -2,9 +2,13 @@ package com.kakao.onboarding.precourse.albusduke.lotto.service;
 
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.PurchaseAmount;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.PurchaseGameAmount;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.TicketQuantity;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoGames;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbersGenerator;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.ManualTicketQuantity;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.ManualTickets;
+import com.kakao.onboarding.precourse.albusduke.lotto.domain.Money;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -12,7 +16,6 @@ import java.util.stream.IntStream;
 public class LottoService {
 
     private static final int LOTTO_COST = 1_000;
-    private static final String PURCHASE_MOUNT_NOT_DIVIDED_BY_LOTTO_COST = "로또 구매 단위는 " +  LOTTO_COST + "원 단위여야 합니다.";
 
     private final LottoNumbersGenerator lottoNumbersGenerator;
 
@@ -20,26 +23,26 @@ public class LottoService {
         this.lottoNumbersGenerator =  lottoNumbersGenerator;
     }
 
-    public PurchaseGameAmount purchaseLottoGames(PurchaseAmount purchaseAmount) {
-        validateDivisibleByLottoCost(purchaseAmount);
-
-        return calculatePurchaseGameAmount(purchaseAmount);
+    public Money createMoneyBy(PurchaseAmount purchaseAmount) {
+        return new Money(purchaseAmount.purchaseAmount());
     }
 
-    private static void validateDivisibleByLottoCost(PurchaseAmount purchaseAmount) {
-        if (purchaseAmount.purchaseAmount() % LOTTO_COST != 0) {
-            throw new IllegalArgumentException(PURCHASE_MOUNT_NOT_DIVIDED_BY_LOTTO_COST);
-        }
+    public TicketQuantity calculateTicketQuantity(Money money, ManualTicketQuantity manualTicketQuantity) {
+        Money lottoCost = new Money(LOTTO_COST);
+        int totalQuantity = money.divide(lottoCost);
+        int manualQuantity = manualTicketQuantity.getQuantity();
+        int randomQuantity = totalQuantity - manualQuantity;
+        return new TicketQuantity(randomQuantity, manualQuantity);
     }
 
-    private PurchaseGameAmount calculatePurchaseGameAmount(PurchaseAmount purchaseAmount) {
-        return new PurchaseGameAmount(purchaseAmount.purchaseAmount() / LOTTO_COST);
-    }
-
-    public LottoGames purchaseLottoGame(PurchaseGameAmount purchaseGameAmount) {
-        List<LottoNumbers> lottoNumbers = IntStream.range(0, purchaseGameAmount.count())
+    public LottoGames purchaseLottoGame(TicketQuantity ticketQuantity, ManualTickets manualTickets) {
+        List<LottoNumbers> lottoNumbers = IntStream.range(0, ticketQuantity.getRandomQuantity())
                 .mapToObj(i -> lottoNumbersGenerator.generate())
                 .toList();
+        List<LottoNumbers> manualLottoNumbers = manualTickets.getTicketNumbers().stream()
+                .map(i -> lottoNumbersGenerator.generate())
+                .toList();
+        lottoNumbers.addAll(manualLottoNumbers);
         return new LottoGames(lottoNumbers);
     }
 }

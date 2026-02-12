@@ -22,32 +22,34 @@ public class LottoController {
     }
 
     public void runLottoGame() {
-        PurchaseGameAmount purchaseGameAmount = calculatePurchaseGameAmount();
-        LottoGames lottoGames = purchaseLottoGame(purchaseGameAmount);
+        TicketQuantity ticketQuantity = calculateTicketQuantity();
+        LottoGames lottoGames = purchaseLottoGame(ticketQuantity);
         WinningNumbers winningNumbers = createWinningNumbers();
         calculateStatistics(winningNumbers, lottoGames);
     }
 
-    public PurchaseGameAmount calculatePurchaseGameAmount() {
+    public TicketQuantity calculateTicketQuantity() {
         try {
             PurchaseAmount purchaseAmount = inputConsoleView.inputPurchaseAmount();
-            PurchaseGameAmount purchaseGameAmount = lottoService.purchaseLottoGames(purchaseAmount);
-            outputConsoleView.outputPurchaseGameAmount(purchaseGameAmount);
-            return purchaseGameAmount;
+            Money money = lottoService.createMoneyBy(purchaseAmount);
+            ManualTicketQuantity manualTicketQuantity = inputConsoleView.inputManualTicketQuantity();
+            TicketQuantity ticketQuantity = lottoService.calculateTicketQuantity(money, manualTicketQuantity);
+            return ticketQuantity;
         } catch (IllegalArgumentException e) {
             outputConsoleView.outputError(e);
-            return calculatePurchaseGameAmount();
+            return calculateTicketQuantity();
         }
     }
 
-    public LottoGames purchaseLottoGame(PurchaseGameAmount purchaseAmount) {
+    public LottoGames purchaseLottoGame(TicketQuantity ticketQuantity) {
         try {
-            LottoGames lottoGames = lottoService.purchaseLottoGame(purchaseAmount);
+            ManualTickets manualTickets = inputConsoleView.inputManualTickets();
+            LottoGames lottoGames = lottoService.purchaseLottoGame(ticketQuantity, manualTickets);
             outputConsoleView.outputLottoNumbers(lottoGames);
             return lottoGames;
         } catch (IllegalArgumentException e) {
             outputConsoleView.outputError(e);
-            return purchaseLottoGame(purchaseAmount);
+            return purchaseLottoGame(ticketQuantity);
         }
     }
 

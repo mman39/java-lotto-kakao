@@ -35,16 +35,16 @@ public class InputView {
         return new PurchaseAmount(purchaseAmount);
     }
 
-    public ManualPurchaseGameCount inputManualPurchaseGameCount() {
+    public ManualTicketQuantity inputManualTicketQuantity() {
         System.out.println(MANUAL_PURCHASE_GAME_AMOUNT_REQUEST);
-        int manualPurchaseGameCount = input.readInt();
-        return new ManualPurchaseGameCount(manualPurchaseGameCount);
+        int manualTicketQuantity = input.readInt();
+        return new ManualTicketQuantity(manualTicketQuantity);
     }
 
-    public ManualPurchaseGames inputManualPurchaseGames() {
+    public ManualTickets inputManualTickets() {
         System.out.println(MANUAL_PURCHASE_GAMES_NUMBERS_REQUEST);
         List<Integer> manualPurchaseGames = input.readIntegerList();
-        return new ManualPurchaseGames(manualPurchaseGames);
+        return new ManualTickets(manualPurchaseGames);
     }
 
     public WinningNumbers inputWinningNumbers() {
