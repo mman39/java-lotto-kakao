@@ -14,7 +14,6 @@ public class InputView {
     private static final String PURCHASE_AMOUNT_REQUEST = "구입금액을 입력해 주세요.";
     private static final String ILLEGAL_PURCHASE_AMOUNT_ERR_MSG = "구매금액은 " + MIN_PURCHASE_AMOUNT + " 초과, " + MAX_PURCHASE_AMOUNT + " 미만이어야 합니다";
     private static final String MANUAL_PURCHASE_GAME_AMOUNT_REQUEST = "수동으로 구매할 로또 수를 입력해 주세요.";
-    private static final String MANUAL_PURCHASE_GAMES_NUMBERS_REQUEST = "수동으로 구매할 로또 번호를 입력해 주세요.";
     private static final String WINNING_NUMBERS_REQUEST = "지난 주 당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_REQUEST = "보너스 볼을 입력해 주세요.";
     private static final String ILLEGAL_WINNING_NUMBERS_ERR_MSG = "입력 형식은 숫자여야 합니다. (ex: 1, 2, 3, 4, 5, 6)";
@@ -41,10 +40,9 @@ public class InputView {
         return new ManualTicketQuantity(manualTicketQuantity);
     }
 
-    public ManualTickets inputManualTickets() {
-        System.out.println(MANUAL_PURCHASE_GAMES_NUMBERS_REQUEST);
+    public ManualTicketNumbers inputManualTicketNumbers() {
         List<Integer> manualPurchaseGames = input.readIntegerList();
-        return new ManualTickets(manualPurchaseGames);
+        return new ManualTicketNumbers(manualPurchaseGames);
     }
 
     public WinningNumbers inputWinningNumbers() {

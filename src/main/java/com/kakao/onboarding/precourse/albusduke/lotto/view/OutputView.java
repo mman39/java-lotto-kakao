@@ -17,6 +17,10 @@ public class OutputView {
         output.outputPurchaseGameAmount(purchasedGameAmount);
     }
 
+    public void OutputManualLottoNumbersPrompt() {
+        output.outputManualLottoNumbersPrompt();
+    }
+
     public void outputLottoNumbers(LottoGames lottoGames) {
         output.outputLottoNumbers(lottoGames);
     }

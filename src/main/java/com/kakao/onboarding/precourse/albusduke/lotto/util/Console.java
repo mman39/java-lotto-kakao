@@ -21,6 +21,7 @@ public class Console implements Input, Output {
     private static final String INTEGER_LIST_FORMAT_ERROR_MSG = "숫자 리스트 형식이어야 합니다. (ex: 1, 2, 3, 4, 5, 6)";
 
     private static final String PURCHASE_COUNT_FORMAT = "%d개를 구매했습니다.\n";
+    private static final String MANUAL_LOTTO_NUMBERS_PROMPT = "수동으로 구매할 로또 번호를 입력해 주세요.";
     private static final String STATISTICS_PREFIX = "당첨 통계\n-------------";
     private static final String MATCHING_FORMAT = "%d개 일치";
     private static final String REWARD_FORMAT = "(%d원)";
@@ -62,6 +63,11 @@ public class Console implements Input, Output {
     @Override
     public void outputPurchaseGameAmount(PurchaseGameAmount purchasedGameAmount) {
         System.out.printf(PURCHASE_COUNT_FORMAT, purchasedGameAmount.count());
+    }
+
+    @Override
+    public void outputManualLottoNumbersPrompt() {
+        System.out.println(MANUAL_LOTTO_NUMBERS_PROMPT);
     }
 
     @Override
