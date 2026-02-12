@@ -9,6 +9,7 @@ import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumber;
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.LottoNumbers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +17,9 @@ import java.util.StringJoiner;
 
 public class Console implements Input, Output {
     private static final String NUMBER_FORMAT_ERROR_MSG = "숫자 형식이어야 합니다.";
-    
+    private static final String DELIMITER = ",";
+    private static final String INTEGER_LIST_FORMAT_ERROR_MSG = "숫자 리스트 형식이어야 합니다. (ex: 1, 2, 3, 4, 5, 6)";
+
     private static final String PURCHASE_COUNT_FORMAT = "%d개를 구매했습니다.\n";
     private static final String STATISTICS_PREFIX = "당첨 통계\n-------------";
     private static final String MATCHING_FORMAT = "%d개 일치";
@@ -38,6 +41,19 @@ public class Console implements Input, Output {
         try {
             String next = readNext();
             return Integer.parseInt(next.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(NUMBER_FORMAT_ERROR_MSG);
+        }
+    }
+
+    @Override
+    public List<Integer> readIntegerList() {
+        String next = readNext();
+        try {
+            return Arrays.stream(next.split(DELIMITER))
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .toList();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(NUMBER_FORMAT_ERROR_MSG);
         }
