@@ -1,5 +1,9 @@
 package com.kakao.onboarding.precourse.albusduke.lotto.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import com.kakao.onboarding.precourse.albusduke.lotto.domain.*;
 import com.kakao.onboarding.precourse.albusduke.lotto.service.LottoService;
 import com.kakao.onboarding.precourse.albusduke.lotto.service.StatisticsService;
@@ -23,7 +27,7 @@ public class LottoController {
 
     public void runLottoGame() {
         TicketQuantity ticketQuantity = calculateTicketQuantity();
-        LottoGames lottoGames = purchaseLottoGame(ticketQuantity);
+        LottoGames lottoGames = purchaseLottoGames(ticketQuantity);
         WinningNumbers winningNumbers = createWinningNumbers();
         calculateStatistics(winningNumbers, lottoGames);
     }
@@ -41,15 +45,37 @@ public class LottoController {
         }
     }
 
-    public LottoGames purchaseLottoGame(TicketQuantity ticketQuantity) {
+    private LottoGames purchaseLottoGames(TicketQuantity ticketQuantity) {
+        List<LottoNumbers> randomLottoNumbers = purchaseRandomLottoGames(ticketQuantity);
+        List<LottoNumbers> manualLottoNumbers = purchaseManualLottoGames(ticketQuantity);
+        List<LottoNumbers> allLottoNumbers = new ArrayList<>(randomLottoNumbers);
+        allLottoNumbers.addAll(manualLottoNumbers);
+        return new LottoGames(allLottoNumbers);
+    }
+
+    private List<LottoNumbers> purchaseRandomLottoGames(TicketQuantity ticketQuantity) {
+        return lottoService.purchaseRandomLottoGames(ticketQuantity);
+    }
+
+    private List<LottoNumbers> purchaseManualLottoGames(TicketQuantity ticketQuantity) {
         try {
-            ManualTickets manualTickets = inputConsoleView.inputManualTickets();
-            LottoGames lottoGames = lottoService.purchaseLottoGame(ticketQuantity, manualTickets);
-            outputConsoleView.outputLottoNumbers(lottoGames);
-            return lottoGames;
+            outputConsoleView.OutputManualLottoNumbersPrompt();
+            return IntStream.range(0, ticketQuantity.getManualQuantity())
+                .mapToObj(i -> purchaseManualLottoGame(ticketQuantity))
+                .toList();
         } catch (IllegalArgumentException e) {
             outputConsoleView.outputError(e);
-            return purchaseLottoGame(ticketQuantity);
+            return purchaseManualLottoGames(ticketQuantity);
+        }
+    }
+
+    public LottoNumbers purchaseManualLottoGame(TicketQuantity ticketQuantity) {
+        try {
+            ManualTicketNumbers manualTicketNumbers = inputConsoleView.inputManualTicketNumbers();
+            return lottoService.purchaseManualLottoGame(manualTicketNumbers);
+        } catch (IllegalArgumentException e) {
+            outputConsoleView.outputError(e);
+            return purchaseManualLottoGame(ticketQuantity);
         }
     }
 
