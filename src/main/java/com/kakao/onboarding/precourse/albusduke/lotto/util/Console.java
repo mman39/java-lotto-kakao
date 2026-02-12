@@ -55,7 +55,7 @@ public class Console implements Input, Output {
                     .map(Integer::parseInt)
                     .toList();
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(NUMBER_FORMAT_ERROR_MSG);
+            throw new IllegalArgumentException(INTEGER_LIST_FORMAT_ERROR_MSG);
         }
     }
 
