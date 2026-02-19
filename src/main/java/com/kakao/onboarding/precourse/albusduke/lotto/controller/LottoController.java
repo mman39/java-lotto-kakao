@@ -28,6 +28,8 @@ public class LottoController {
     public void runLottoGame() {
         TicketQuantity ticketQuantity = calculateTicketQuantity();
         LottoGames lottoGames = purchaseLottoGames(ticketQuantity);
+        outputConsoleView.outputPurchaseCount(ticketQuantity.getManualQuantity(), ticketQuantity.getRandomQuantity());
+        outputConsoleView.outputLottoNumbers(lottoGames);
         WinningNumbers winningNumbers = createWinningNumbers();
         calculateStatistics(winningNumbers, lottoGames);
     }
@@ -46,10 +48,10 @@ public class LottoController {
     }
 
     private LottoGames purchaseLottoGames(TicketQuantity ticketQuantity) {
-        List<LottoNumbers> randomLottoNumbers = purchaseRandomLottoGames(ticketQuantity);
         List<LottoNumbers> manualLottoNumbers = purchaseManualLottoGames(ticketQuantity);
-        List<LottoNumbers> allLottoNumbers = new ArrayList<>(randomLottoNumbers);
-        allLottoNumbers.addAll(manualLottoNumbers);
+        List<LottoNumbers> randomLottoNumbers = purchaseRandomLottoGames(ticketQuantity);
+        List<LottoNumbers> allLottoNumbers = new ArrayList<>(manualLottoNumbers);
+        allLottoNumbers.addAll(randomLottoNumbers);
         return new LottoGames(allLottoNumbers);
     }
 
