@@ -21,6 +21,10 @@ public class OutputView {
         output.outputManualLottoNumbersPrompt();
     }
 
+    public void outputPurchaseCount(int manualCount, int autoCount) {
+        output.outputPurchaseCount(manualCount, autoCount);
+    }
+
     public void outputLottoNumbers(LottoGames lottoGames) {
         output.outputLottoNumbers(lottoGames);
     }

@@ -10,6 +10,8 @@ public interface Output {
 
     void outputManualLottoNumbersPrompt();
 
+    void outputPurchaseCount(int manualCount, int autoCount);
+
     void outputLottoNumbers(LottoGames lottoGames);
 
     void outputStatistics(Statistics statistics);
