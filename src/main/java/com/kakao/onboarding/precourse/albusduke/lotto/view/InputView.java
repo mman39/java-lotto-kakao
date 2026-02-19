@@ -70,6 +70,6 @@ public class InputView {
             throw new IllegalArgumentException(ILLEGAL_BONUS_NUMBER_ERR_MSG);
         }
 
-        return new WinningNumbers(new LottoNumbers(winningNumbers), new LottoNumber(bonusNumber));
+        return new WinningNumbers(new LottoNumbers(winningNumbers), LottoNumber.of(bonusNumber));
     }
 }
